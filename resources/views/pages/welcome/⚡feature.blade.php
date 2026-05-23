@@ -1,12 +1,4 @@
-<?php
-
-use Livewire\Component;
-
-new class extends Component
-{
-    //
-};
-?>
+<?php use Livewire\Component;new class extends Component{};?>
 
 <!-- Feature Section -->
 <section class="md:max-w-8/12 mx-auto px-6 py-24">

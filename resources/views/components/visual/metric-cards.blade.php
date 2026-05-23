@@ -1,0 +1,67 @@
+<div class="glass-card rounded-2xl overflow-hidden shadow-xl border border-white/50">
+	<div class="p-6 md:p-8">
+		<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+			<div
+				class="col-span-2 md:col-span-3 bg-white rounded-xl p-6 border border-outline-variant/20 flex flex-col justify-between min-h-[160px]">
+				<div class="flex justify-between items-start">
+					<div>
+						<p class="text-on-surface-variant text-sm font-medium">Total Clicks</p>
+						<h4 class="text-3xl font-bold text-primary mt-1">43,500</h4>
+					</div>
+					<span class="material-symbols-outlined text-primary-container opacity-20 text-4xl">touch_app</span>
+				</div>
+				<div class="flex items-end gap-1 h-12 mt-4">
+					<div class="flex-1 bg-primary/10 h-[40%] rounded-t-sm"></div>
+					<div class="flex-1 bg-primary/20 h-[60%] rounded-t-sm"></div>
+					<div class="flex-1 bg-primary/10 h-[45%] rounded-t-sm"></div>
+					<div class="flex-1 bg-primary/30 h-[80%] rounded-t-sm"></div>
+					<div class="flex-1 bg-primary/20 h-[55%] rounded-t-sm"></div>
+					<div class="flex-1 bg-primary/40 h-[90%] rounded-t-sm"></div>
+					<div class="flex-1 bg-primary h-[100%] rounded-t-sm"></div>
+				</div>
+			</div>
+			<div class="bg-white rounded-xl p-6 border border-outline-variant/20 flex flex-col justify-between">
+				<div
+					class="w-10 h-10 rounded-lg bg-secondary-container/10 flex items-center justify-center text-secondary-container mb-4">
+					<span class="material-symbols-outlined">headphones</span>
+				</div>
+				<div>
+					<p class="text-on-surface-variant text-xs font-medium uppercase tracking-wider">Track Plays</p>
+					<h4 class="text-2xl font-bold text-on-surface">643</h4>
+				</div>
+			</div>
+			<div class="md:col-span-2 bg-white rounded-xl p-6 border border-outline-variant/20 flex flex-col justify-between">
+				<div class="w-10 h-10 rounded-lg bg-green-500/10 flex items-center justify-center text-green-600 mb-4">
+					<span class="material-symbols-outlined">payments</span>
+				</div>
+				<div>
+					<p class="text-on-surface-variant text-xs font-medium uppercase tracking-wider">Total Sales</p>
+					<h4 class="text-2xl font-bold text-on-surface">$2,362</h4>
+				</div>
+			</div>
+			<div
+				class="md:col-span-2 bg-primary text-white rounded-xl p-6 flex items-center justify-between overflow-hidden relative">
+				<div class="relative z-10">
+					<div class="flex items-center gap-2 mb-1">
+						<span class="relative flex h-2 w-2">
+							<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
+							<span class="relative inline-flex rounded-full h-2 w-2 bg-secondary"></span>
+						</span>
+						<span class="text-xs font-medium opacity-80 uppercase tracking-widest">Real-time Visits</span>
+					</div>
+					<h4 class="text-4xl font-bold tracking-tight">960</h4>
+					<p class="text-xs mt-2 opacity-70 flex items-center gap-1">
+						<span class="material-symbols-outlined text-[14px]">location_on</span> New York, USA
+					</p>
+				</div>
+				<div class="opacity-10 absolute -right-4 -bottom-4">
+					<span class="material-symbols-outlined text-[120px]">public</span>
+				</div>
+			</div>
+			<div
+				class="bg-surface-container rounded-xl p-6 border border-outline-variant/20 flex md:hidden items-center justify-center">
+				<p class="text-on-surface-variant text-sm font-medium">Detailed analytics dashboard available in Pro</p>
+			</div>
+		</div>
+	</div>
+</div>

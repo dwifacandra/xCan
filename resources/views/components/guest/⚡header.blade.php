@@ -1,22 +1,11 @@
-<?php
-
-use Livewire\Component;
-
-new class extends Component
-{
-    //
-};
-?>
+<?php use Livewire\Component;new class extends Component{};?>
 
 <header class="sticky top-0 w-full bg-surface/40 backdrop-blur-xl border-b border-outline-variant/10 z-50 shadow-sm"
 	x-data="{ mobileMenu: false }">
 	{{-- Desktop Menu --}}
 	<div class="md:max-w-8/12 mx-auto flex justify-between items-center px-4 py-2">
-		<a href="/" class="flex items-center gap-1 hover:opacity-90 transition-opacity">
-			<img alt="xCan Logo" class="w-8 h-8 object-contain" src="{{ asset('logo.png') }}">
-			<span class="font-geist text-xl font-bold tracking-tight text-primary">{{ config('app.name') }}</span>
-		</a>
-
+		{{-- Brand --}}
+		<x-brand />
 		<nav class="hidden md:flex items-center gap-8">
 			<a class="font-sans text-[14px] font-medium text-on-surface-variant hover:text-primary transition-colors"
 				href="#">Blog</a>
@@ -26,25 +15,29 @@ new class extends Component
 			<a class="font-sans text-[14px] font-medium text-on-surface-variant hover:text-primary transition-colors"
 				href="#">Pricing</a>
 		</nav>
-
 		<div class="hidden md:flex items-center gap-2">
-			<button
+			@auth
+			<a href="{{ url('/dashboard') }}"
+				class="h-9 flex items-center justify-center px-5 rounded-lg w-9 border border-primary text-primary hover:bg-primary hover:text-white/90 transition-all duration-200"
+				title="Dashboard">
+				<i class="fa-solid fa-desktop text-sm"></i>
+			</a>
+			@else
+			<a href="{{ route('login') }}" wire:navigate
 				class="h-9 flex items-center justify-center px-5 rounded-lg w-9 border border-primary text-primary hover:bg-primary hover:text-white/90 transition-all duration-200"
 				title="Login">
 				<i class="fa-solid fa-right-to-bracket text-sm"></i>
-			</button>
-
+			</a>
+			@endauth
 			<button
-				class="h-9 flex items-center justify-center px-5 rounded-lg primary-gradient-btn text-white hover:scale-[1.03] transition-transform duration-200 font-button-text active:scale-95 capitalize">
+				class="h-9 flex items-center justify-center px-5 rounded-lg primary-gradient text-white hover:scale-[1.03] transition-transform duration-200 font-button-text active:scale-95 capitalize">
 				Get Started
 			</button>
 		</div>
-
 		<button @click="mobileMenu = !mobileMenu" class="md:hidden text-primary flex items-center">
 			<span class="material-symbols-outlined text-[24px]" x-text="mobileMenu ? 'close' : 'menu'">menu</span>
 		</button>
 	</div>
-
 	{{-- Mobile Menu --}}
 	<div
 		class="md:hidden fixed top-full left-0 w-full bg-surface border-b border-outline-variant p-6 flex flex-col gap-6 shadow-xl"
@@ -60,12 +53,18 @@ new class extends Component
 				href="#">Pricing</a>
 		</nav>
 		<div class="flex flex-row gap-2">
-			<button
-				class="flex-1 flex justify-center items-center gap-2 px-4 py-3 border border-primary text-primary rounded-lg font-sans text-[14px] font-semibold">
-				<span class="material-symbols-outlined text-xl">login</span> Login
-			</button>
-
-			<button class="flex-[2] primary-gradient-btn text-white px-6 py-3 rounded-lg font-sans text-[14px] font-semibold">
+			@auth
+			<a href="{{ url('/dashboard') }}"
+				class="flex-1 flex justify-center items-center gap-2 px-4 py-3 border border-primary text-primary rounded-lg font-sans text-[14px] font-semibold hover:bg-primary hover:text-white transition-all">
+				<i class="fa-solid fa-desktop text-xl"></i> Dashboard
+			</a>
+			@else
+			<a href="{{ route('login') }}" wire:navigate
+				class="flex-1 flex justify-center items-center gap-2 px-4 py-3 border border-primary text-primary rounded-lg font-sans text-[14px] font-semibold hover:bg-primary hover:text-white transition-all">
+				<i class="fa-solid fa-right-to-bracket text-xl"></i> Login
+			</a>
+			@endauth
+			<button class="flex-[2] primary-gradient text-white px-6 py-3 rounded-lg font-sans text-[14px] font-semibold">
 				Get Started
 			</button>
 		</div>

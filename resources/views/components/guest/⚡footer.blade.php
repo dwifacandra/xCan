@@ -1,12 +1,4 @@
-<?php
-
-use Livewire\Component;
-
-new class extends Component
-{
-    //
-};
-?>
+<?php use Livewire\Component;new class extends Component{};?>
 
 <!-- Footer -->
 <footer class="bg-surface-container-lowest w-full rounded-t-xl mt-20">
@@ -56,8 +48,8 @@ new class extends Component
 			</div>
 		</div>
 		<div class="pt-12 border-t border-outline-variant/20 flex flex-col md:flex-row justify-between items-center gap-6">
-			<p class="font-label-sm text-label-sm text-on-surface-variant text-center md:text-left">© 2024 xCan Ecosystem. All
-				rights reserved. Professional tools for the high-performance developer.</p>
+			<p class="font-label-sm text-label-sm text-on-surface-variant text-center md:text-left">© {{ date('Y') }} xCan
+				Ecosystem. All rights reserved.</p>
 		</div>
 	</div>
 </footer>

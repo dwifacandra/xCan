@@ -5,7 +5,7 @@ use Livewire\Component;
 
 new
 	#[Layout('layouts::guest')]
-	#[Title('Make Your Custom page with xCan')]
+	#[Title('Make Your Page with xCan')]
 class extends Component
 {
     //

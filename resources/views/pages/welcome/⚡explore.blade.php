@@ -1,12 +1,4 @@
-<?php
-
-use Livewire\Component;
-
-new class extends Component
-{
-    //
-};
-?>
+<?php use Livewire\Component;new class extends Component{};?>
 
 <!-- Explore Section -->
 <section class="w-full bg-surface py-20 px-6">

@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 @source '../**/*.blade.php';
@@ -47,6 +49,9 @@
 	--color-on-tertiary: #ffffff;
 	--color-tertiary-container: #353436;
 	--color-on-tertiary-container: #9e9c9f;
+
+	--color-quaternary-start: #1218a6;
+	--color-quaternary-end: #7b1fa2;
 
 	--color-error: #ba1a1a;
 	--color-on-error: #ffffff;
@@ -111,6 +116,20 @@
 	--text-label-sm--line-height: 1.4;
 	--text-label-sm--font-weight: 500;
 	--text-label-sm--letter-spacing: 0.05em;
+
+	--keyframes-fade-in-up: {
+		from {
+			opacity: 0;
+			transform: translateY(20px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	};
+
+	/* Daftarkan animasi */
+	--animate-fade-in-up: fade-in-up 0.6s ease-out forwards;
 }
 
 /* ==========================================================================
@@ -127,20 +146,91 @@
 	}
 }
 
-/* Glassmorphic card styling custom token dari Stitch */
 @utility glass-card {
-	background: rgba(255, 255, 255, 0.4);
-	backdrop-filter: blur(20px);
-	border: 1px solid rgba(0, 0, 0, 0.1);
+	background: rgba(255, 255, 255, 0.1);
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-/* Tombol gradien utama (Primary Deep Cobalt ke Secondary Crimson Red) */
-@utility primary-gradient-btn {
+.glass-card:hover {
+	box-shadow: 0 10px 30px -10px rgba(18, 24, 166, 0.15);
+	transform: scale(1.01);
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.brand-gradient {
+	background: linear-gradient(135deg, #0a52ce 0%, #bc1333 100%);
+}
+
+/* Gradient */
+@utility primary-gradient {
 	background: linear-gradient(
 		135deg,
 		var(--color-primary) 0%,
 		var(--color-secondary) 100%
 	);
+}
+
+@utility secondary-gradient {
+	background: linear-gradient(
+		135deg,
+		var(--color-secondary) 0%,
+		var(--color-primary) 100%
+	);
+}
+
+@utility tertiary-gradient {
+	background: linear-gradient(
+		135deg,
+		var(--color-tertiary) 0%,
+		var(--color-tertiary-container) 100%
+	);
+}
+
+@utility quaternary-gradient {
+	background: linear-gradient(
+		135deg,
+		var(--color-quaternary-start) 0%,
+		var(--color-quaternary-end) 100%
+	);
+}
+
+@keyframes gradient-shift {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+@utility animate-gradient {
+	background: linear-gradient(
+		135deg,
+		var(--color-primary),
+		var(--color-secondary)
+	);
+	background-size: 300% 300%;
+	animation: gradient-shift 20s ease infinite;
+}
+
+/* Teks Gradient */
+@utility text-primary-gradient {
+	background-image: linear-gradient(
+		135deg,
+		var(--color-primary) 0%,
+		var(--color-secondary) 100%
+	);
+	background-clip: text;
+	color: transparent;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
 }
 
 /* Konfigurasi Material Symbols Icon */
@@ -164,6 +254,24 @@
 /* Paket Headline LG Mobile untuk navigasi seluler saat dibuka */
 @utility font-headline-lg-mobile {
 	@apply font-geist text-[24px] font-semibold leading-[1.2];
+}
+
+@keyframes slide {
+	from {
+		transform: translateX(0);
+	}
+	to {
+		transform: translateX(-50%);
+	}
+}
+
+.animate-slide {
+	animation: slide 30s linear infinite;
+	transition: all 0.8s ease-in-out;
+}
+
+.paused {
+	animation-play-state: paused;
 }
 
 body {

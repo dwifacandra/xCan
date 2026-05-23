@@ -7,7 +7,7 @@
 
 	<title>
 		{{ $title ?? config('app.name') }} | {{ config('app.name') }}
-		@if(app()->isLocal()) (Guest) @endif
+		@if(app()->isLocal()) (Single) @endif
 	</title>
 
 	<link
@@ -23,9 +23,7 @@
 </head>
 
 <body>
-	<livewire:components.guest.header />
 	{{ $slot }}
-	<livewire:components.guest.footer />
 	@livewireScripts
 </body>
 
