@@ -1,6 +1,6 @@
 # xCan Ecosystem
 
-![xCan Logo]({{DATA:IMAGE:IMAGE_150}})
+![xCan Logo](public/logo.png)
 
 **xCan Ecosystem** is a high-performance, all-in-one platform designed for modern artisans, agents, and digital creators. It empowers users to centralize their digital presence through custom link-in-bio pages, real-time stream overlays, and SEO-optimized developer blogs.
 
