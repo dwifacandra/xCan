@@ -1,12 +1,73 @@
 <?php
 use Livewire\Attributes\Title;
 use Livewire\Component;
+use Livewire\WithPagination;
+use App\Models\Link;
 
 new
-	#[Title('Links Management')]
+#[Title('Links Management')]
 class extends Component
 {
-    //
+    use WithPagination;
+
+    public string $search = '';
+    public string $status = '';
+    public string $type = '';
+
+    public function updatingSearch(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatingStatus(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatingType(): void
+    {
+        $this->resetPage();
+    }
+
+    public function toggleStatus(int $id): void
+    {
+        $link = Link::where('id', $id)
+            ->where('user_id', auth()->id())
+            ->firstOrFail();
+
+        $link->update([
+            'status'       => $link->status === Link::STATUS_PUBLISHED
+                ? Link::STATUS_DRAFT
+                : Link::STATUS_PUBLISHED,
+            'published_at' => $link->status === Link::STATUS_DRAFT ? now() : $link->published_at,
+        ]);
+    }
+
+    public function deleteData(int $id): void
+    {
+        Link::where('id', $id)
+            ->where('user_id', auth()->id())
+            ->firstOrFail()
+            ->delete();
+    }
+
+    public function with(): array
+    {
+        return [
+            'links' => Link::query()
+                ->where('user_id', auth()->id())
+                ->when($this->search, fn($q) => $q->where('title', 'like', "%{$this->search}%")
+                    ->orWhere('slug', 'like', "%{$this->search}%"))
+                ->when($this->status, fn($q) => $q->where('status', $this->status))
+                ->when($this->type, fn($q) => $q->where('type', $this->type))
+                ->withCount([
+                    'visits as total_clicks' => fn($q) => $q->whereNotNull('link_item_id')
+                        ->where('created_at', '>=', now()->subDays(30)),
+                ])
+                ->latest()
+                ->paginate(10),
+        ];
+    }
 };
 ?>
 
@@ -73,105 +134,147 @@ class extends Component
 			</x-modal>
 		</x-slot:actions>
 	</x-app.page-header>
-	<!-- Links Table Card -->
-	<section class="rounded overflow-hidden shadow-sm">
-		<div class="overflow-x-auto">
-			<table class="w-full text-left border-collapse">
-				<thead>
-					<tr
-						class="bg-primary text-on-primary font-label text-xs uppercase tracking-wider border-b border-outline-variant">
-						<th class="px-6 py-4 font-semibold">Title &amp; URL</th>
-						<th class="px-6 py-4 font-semibold">Clicks (30d)</th>
-						<th class="px-6 py-4 font-semibold">Status</th>
-						<th class="px-6 py-4 font-semibold hidden md:table-cell">Created</th>
-						<th class="px-6 py-4 font-semibold text-right">Actions</th>
-					</tr>
-				</thead>
-				<tbody class="divide-y divide-outline-variant">
-					@for ($i = 1; $i <= 10; $i++) <tr class="hover:bg-surface-container-lowest/50 transition-colors group"
-						x-data="{ active: true }">
-						<td class="px-4 py-2">
-							<div class="flex flex-col">
-								<span :class="{ 'opacity-60': !active }" class="font-headline font-semibold text-on-surface">
-									Campaign #{{ $i }}
-								</span>
-								<a :class="{ 'opacity-60': !active }"
-									class="text-primary text-sm font-label hover:underline flex items-center gap-1 mt-1" href="#">
-									xcan.test/campaign-{{ $i }}
-									<sup class="material-symbols-outlined align-sup !text-xs">open_in_new</sup>
-								</a>
-							</div>
-						</td>
-						<td class="px-4 py-2">
-							<div class="flex items-center gap-3">
-								<span :class="{ 'opacity-60': !active }"
-									class="font-headline font-semibold text-lg text-primary">12,450</span>
-								<div :class="{ 'opacity-40': !active }" class="h-6 w-16 flex items-end gap-[1px] opacity-70">
-									<div class="w-full bg-primary rounded-t-sm h-[20%]"></div>
-									<div class="w-full bg-primary rounded-t-sm h-[40%]"></div>
-									<div class="w-full bg-primary rounded-t-sm h-[35%]"></div>
-									<div class="w-full bg-primary rounded-t-sm h-[60%]"></div>
-									<div class="w-full bg-primary rounded-t-sm h-[80%]"></div>
-									<div class="w-full bg-primary rounded-t-sm h-[100%]"></div>
-								</div>
-							</div>
-						</td>
-						<td class="px-4 py-2">
-							<span
-								class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-label bg-primary-fixed text-on-primary-fixed-variant"
-								x-show="active">
-								Active
-							</span>
-							<span
-								class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-label bg-surface-variant text-on-surface-variant"
-								x-cloak x-show="!active">
-								Inactive
-							</span>
-						</td>
-						<td :class="{ 'opacity-60': !active }"
-							class="px-4 py-2 text-sm text-on-surface-variant font-body hidden md:table-cell">
-							Oct 24, 2023
-						</td>
-						<td class="px-4 py-2 text-right">
-							<div class="flex justify-end gap-1">
-								<x-button variant="outline" size="square-xs" icon="open_in_new"
-									link="{{ config('app.url') }}/campaign-{{ $i }}" target="_blank" />
-								<x-button variant="outline" size="square-xs" icon="edit" />
-								<x-button @click="active = !active" variant="outline" size="square-xs" title="Toggle Status">
-									<span class="material-symbols-outlined text-sm"
-										x-text="active ? 'visibility' : 'visibility_off'">visibility</span>
-								</x-button>
-								<x-confirm-modal title="Delete Link?"
-									description="Are you sure you want to delete this link? This action cannot be undone."
-									actionText="Delete" actionMethod="deleteData">
-									<x-slot:trigger>
-										<x-button variant="error" icon="delete" title="Delete" size="square-xs" />
-									</x-slot:trigger>
-								</x-confirm-modal>
-							</div>
-						</td>
-						</tr>
-						@endfor
-				</tbody>
-			</table>
-		</div>
-		<!-- Pagination -->
+	{{-- Filters --}}
+	<div class="flex flex-col sm:flex-row gap-2 mb-4">
+		<input wire:model.live.debounce.300ms="search" type="text" placeholder="Cari title atau slug..."
+			class="border border-outline-variant rounded-md px-3 py-1.5 text-sm bg-surface text-on-surface w-full sm:w-64" />
+		<select wire:model.live="status"
+			class="border border-outline-variant rounded-md px-3 py-1.5 text-sm bg-surface text-on-surface">
+			<option value="">Semua Status</option>
+			<option value="{{ App\Models\Link::STATUS_PUBLISHED }}">Published</option>
+			<option value="{{ App\Models\Link::STATUS_DRAFT }}">Draft</option>
+			<option value="{{ App\Models\Link::STATUS_ARCHIVED }}">Archived</option>
+		</select>
+		<select wire:model.live="type"
+			class="border border-outline-variant rounded-md px-3 py-1.5 text-sm bg-surface text-on-surface">
+			<option value="">Semua Tipe</option>
+			<option value="{{ App\Models\Link::TYPE_LINKTREE }}">Linktree</option>
+			<option value="{{ App\Models\Link::TYPE_VCARD }}">vCard</option>
+			<option value="{{ App\Models\Link::TYPE_PORTFOLIO }}">Portfolio</option>
+			<option value="{{ App\Models\Link::TYPE_LANDING }}">Landing</option>
+			<option value="{{ App\Models\Link::TYPE_STORE }}">Store</option>
+		</select>
+	</div>
+
+	{{-- Links Table Card --}}
+	<section class="grid grid-cols-4 gap-2">
+		@forelse ($links as $link)
 		<div
-			class="px-6 py-4 border-t border-outline-variant flex items-center justify-between bg-surface-container-lowest/30">
-			<span class="text-sm text-on-surface-variant font-body">Showing 1 to 10 of 42 entries</span>
-			<div class="flex gap-1">
-				<button
-					class="px-3 py-1 border border-outline-variant rounded-md text-sm font-label text-outline hover:bg-surface-variant transition-colors"
-					disabled="">&lt;</button>
-				<button
-					class="px-3 py-1 bg-primary text-on-primary rounded-md text-sm font-label border border-primary">1</button>
-				<button
-					class="px-3 py-1 border border-outline-variant rounded-md text-sm font-label text-on-surface hover:bg-surface-variant transition-colors">2</button>
-				<button
-					class="px-3 py-1 border border-outline-variant rounded-md text-sm font-label text-on-surface hover:bg-surface-variant transition-colors">3</button>
-				<button
-					class="px-3 py-1 border border-outline-variant rounded-md text-sm font-label text-on-surface hover:bg-surface-variant transition-colors">&gt;</button>
+			class="bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-4 py-3 hover:border-outline-variant hover:bg-surface-container transition-all">
+			<div class="flex flex-col items-start justify-center gap-2">
+				{{-- Icon Type --}}
+				@php
+				$typeIcon = match($link->type) {
+				App\Models\Link::TYPE_LINKTREE => 'link',
+				App\Models\Link::TYPE_VCARD => 'contact_page',
+				App\Models\Link::TYPE_PORTFOLIO => 'work',
+				App\Models\Link::TYPE_LANDING => 'web',
+				App\Models\Link::TYPE_STORE => 'storefront',
+				default => 'link',
+				};
+				$typeColor = match($link->type) {
+				App\Models\Link::TYPE_LINKTREE => 'bg-primary-fixed text-on-primary-fixed-variant',
+				App\Models\Link::TYPE_VCARD => 'bg-info-container text-on-info-container',
+				App\Models\Link::TYPE_PORTFOLIO => 'bg-secondary-fixed text-on-secondary-fixed-variant',
+				App\Models\Link::TYPE_LANDING => 'bg-warning-container text-on-warning-container',
+				App\Models\Link::TYPE_STORE => 'bg-tertiary-fixed text-on-tertiary-fixed-variant',
+				default => 'bg-surface-variant text-on-surface-variant',
+				};
+				@endphp
+				<div class="flex items-center gap-2">
+					<div class="shrink-0 w-9 h-9 rounded {{ $typeColor }} flex items-center justify-center">
+						<span class="material-symbols-outlined text-base">{{ $typeIcon }}</span>
+					</div>
+
+					{{-- Title & URL --}}
+					<div class="flex-1 leading-0 gap-1 flex flex-col items-start">
+						<span
+							class="text-sm font-semibold text-on-surface truncate @if($link->status !== App\Models\Link::STATUS_PUBLISHED) opacity-50 @endif">
+							{{ $link->title }}
+						</span>
+						@php
+						$typeBadge = match($link->type) {
+						App\Models\Link::TYPE_LINKTREE => 'badge-primary-container',
+						App\Models\Link::TYPE_VCARD => 'badge-info-container',
+						App\Models\Link::TYPE_PORTFOLIO => 'badge-secondary-container',
+						App\Models\Link::TYPE_LANDING => 'badge-warning-container',
+						App\Models\Link::TYPE_STORE => 'badge-tertiary-container',
+						default => 'badge-surface',
+						};
+						$statusBadge = match($link->status) {
+						App\Models\Link::STATUS_PUBLISHED => 'badge-success-container',
+						App\Models\Link::STATUS_DRAFT => 'badge-surface',
+						App\Models\Link::STATUS_ARCHIVED => 'badge-error-container',
+						default => 'badge-surface',
+						};
+						@endphp
+						<div>
+							<span class="badge badge-sm {{ $typeBadge }}">{{ ucfirst($link->type) }}</span>
+							<span class="badge badge-sm {{ $statusBadge }}">{{ ucfirst($link->status) }}</span>
+						</div>
+						<x-link href="{{ url($link->slug) }}" target="_blank" icon="open_in_new" size="xs" @class(['opacity-50'=>
+							$link->status !== App\Models\Link::STATUS_PUBLISHED])
+							>
+							{{ config('app.url') }}/{{ $link->slug }}
+						</x-link>
+					</div>
+				</div>
+
+				<div class="flex w-full items-center justify-between gap-2">
+					{{-- Stats --}}
+					<div class="hidden sm:flex flex-col items-center shrink-0 w-16 text-center">
+						<span
+							class="text-base font-bold text-primary @if($link->status !== App\Models\Link::STATUS_PUBLISHED) opacity-50 @endif">
+							{{ number_format($link->total_clicks) }}
+						</span>
+						<span class="text-[10px] text-on-surface-variant">clicks/30d</span>
+					</div>
+
+					{{-- Created --}}
+					<div class="hidden md:flex flex-col items-center shrink-0 w-20 text-center">
+						<span class="text-xs font-medium text-on-surface">{{ $link->created_at->format('d M Y') }}</span>
+						<span class="text-[10px] text-on-surface-variant">{{ $link->created_at->diffForHumans() }}</span>
+					</div>
+
+					{{-- Actions --}}
+					<div class="flex items-center gap-0.5 shrink-0 scale-80">
+						<x-button variant="outline" size="square-xs" icon="open_in_new" link="{{ url($link->slug) }}"
+							target="_blank" />
+						<x-button variant="outline" size="square-xs" icon="edit" />
+						<x-button wire:click="toggleStatus({{ $link->id }})" variant="outline" size="square-xs"
+							title="Toggle Status">
+							<span class="material-symbols-outlined text-sm">
+								{{ $link->status === App\Models\Link::STATUS_PUBLISHED ? 'visibility' : 'visibility_off' }}
+							</span>
+						</x-button>
+						<x-confirm-modal title="Delete Link?"
+							description="Are you sure you want to delete this link? This action cannot be undone." actionText="Delete"
+							actionMethod="deleteData" :actionParams="[$link->id]">
+							<x-slot:trigger>
+								<x-button variant="error" icon="delete" size="square-xs" />
+							</x-slot:trigger>
+						</x-confirm-modal>
+					</div>
+				</div>
+
 			</div>
 		</div>
+		@empty
+		<div class="bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-6 py-12 text-center">
+			<span class="material-symbols-outlined text-4xl text-outline mb-2 block">link_off</span>
+			<p class="text-sm text-on-surface-variant">Belum ada link.</p>
+			<a href="#" class="text-sm text-primary hover:underline mt-1 inline-block">Buat link pertamamu</a>
+		</div>
+		@endforelse
+
+		{{-- Pagination --}}
+		@if($links->hasPages())
+		<div class="flex items-center justify-between pt-2">
+			<span class="text-xs text-on-surface-variant">
+				{{ $links->firstItem() }}–{{ $links->lastItem() }} of {{ $links->total() }}
+			</span>
+			{{ $links->links() }}
+		</div>
+		@endif
 	</section>
 </section>

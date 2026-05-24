@@ -23,9 +23,9 @@ class DatabaseSeeder extends Seeder
 				'email' => 'aditya@xcan.test',
 				'password' => Hash::make('password123')
 			]);
-			// $this->call([
-			// 	\Database\Seeders\DemoSystemSeeder::class,
-			// ]);
+			$this->call([
+				LinkSeeder::class,
+			]);
 		}
 	}
 }

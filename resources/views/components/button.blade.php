@@ -42,18 +42,18 @@ $sizes = [
 'xl' => 'px-[var(--spacing-safe-area)] py-[var(--spacing-stack-lg)] text-lg gap-[var(--spacing-stack-md)]',
 
 // Tombol Square (Ikon saja, 1:1, menambahkan text-size agar ikon menyesuaikan)
-'square-xs' => 'p-[var(--spacing-stack-xs)] text-[10px] aspect-square',
-'square-sm' => 'p-[var(--spacing-stack-sm)] text-xs aspect-square',
-'square-md' => 'p-[var(--spacing-stack-md)] text-sm aspect-square',
-'square-lg' => 'p-[var(--spacing-stack-lg)] text-base aspect-square',
-'square-xl' => 'p-[var(--spacing-stack-xl)] text-lg aspect-square',
+'square-xs' => 'p-[var(--spacing-stack-xs)] text-xs aspect-square',
+'square-sm' => 'p-[var(--spacing-stack-sm)] text-sm aspect-square',
+'square-md' => 'p-[var(--spacing-stack-md)] text-md aspect-square',
+'square-lg' => 'p-[var(--spacing-stack-lg)] text-lg aspect-square',
+'square-xl' => 'p-[var(--spacing-stack-xl)] text-x; aspect-square',
 
 // Tombol Circle (Ikon saja, rounded, menambahkan text-size)
-'circle-xs' => 'p-[var(--spacing-stack-xs)] text-[10px] rounded-full aspect-square',
-'circle-sm' => 'p-[var(--spacing-stack-sm)] text-xs rounded-full aspect-square',
-'circle-md' => 'p-[var(--spacing-stack-md)] text-sm rounded-full aspect-square',
-'circle-lg' => 'p-[var(--spacing-stack-lg)] text-base rounded-full aspect-square',
-'circle-xl' => 'p-[var(--spacing-stack-xl)] text-lg rounded-full aspect-square',
+'circle-xs' => 'p-[var(--spacing-stack-xs)] text-xs rounded-full aspect-square',
+'circle-sm' => 'p-[var(--spacing-stack-sm)] text-sm rounded-full aspect-square',
+'circle-md' => 'p-[var(--spacing-stack-md)] text-md rounded-full aspect-square',
+'circle-lg' => 'p-[var(--spacing-stack-lg)] text-lg rounded-full aspect-square',
+'circle-xl' => 'p-[var(--spacing-stack-xl)] text-xl rounded-full aspect-square',
 ];
 
 $classes = implode(' ', [
