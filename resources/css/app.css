@@ -8,14 +8,18 @@
 @source '../**/*.js';
 
 /* ==========================================================================
-   xCan Core Design System Configuration - Tailwind CSS v4 Official Syntax
+   xCan Core Design System — Tailwind CSS v4
    ========================================================================== */
 
+/* --------------------------------------------------------------------------
+   THEME TOKENS
+   -------------------------------------------------------------------------- */
+
 @theme {
-	/* 1. Dark Mode Setup v4 */
+	/* Dark Mode */
 	--variant-dark: .dark &;
 
-	/* 2. Custom Core Color Palette */
+	/* Surface Scale */
 	--color-surface: #f9f9f9;
 	--color-surface-dim: #dadada;
 	--color-surface-bright: #f9f9f9;
@@ -24,75 +28,98 @@
 	--color-surface-container: #eeeeee;
 	--color-surface-container-high: #e8e8e8;
 	--color-surface-container-highest: #e2e2e2;
+	--color-surface-variant: #e2e2e2;
+	--color-surface-tint: #454ecf;
 
+	/* On-Surface */
 	--color-on-surface: #1a1c1c;
 	--color-on-surface-variant: #454654;
 	--color-inverse-surface: #2f3131;
 	--color-inverse-on-surface: #f0f1f1;
 
+	/* Outline */
 	--color-outline: #767685;
 	--color-outline-variant: #c6c5d6;
-	--color-surface-tint: #454ecf;
 
+	/* Background */
+	--color-background: #f9f9f9;
+	--color-on-background: #1a1c1c;
+
+	/* Primary */
 	--color-primary: #00017a;
 	--color-on-primary: #ffffff;
 	--color-primary-container: #1218a6;
-	--color-on-primary-container: #8c94ff;
+	--color-on-primary-container: #ffffff;
 	--color-inverse-primary: #bec2ff;
-
-	--color-secondary: #bb0017;
-	--color-on-secondary: #ffffff;
-	--color-secondary-container: #e1272b;
-	--color-on-secondary-container: #fffbff;
-
-	--color-tertiary: #1f1f21;
-	--color-on-tertiary: #ffffff;
-	--color-tertiary-container: #353436;
-	--color-on-tertiary-container: #9e9c9f;
-
-	--color-quaternary-start: #1218a6;
-	--color-quaternary-end: #7b1fa2;
-
-	--color-error: #ba1a1a;
-	--color-on-error: #ffffff;
-	--color-error-container: #ffdad6;
-	--color-on-error-container: #93000a;
-
 	--color-primary-fixed: #e0e0ff;
 	--color-primary-fixed-dim: #bec2ff;
 	--color-on-primary-fixed: #00016d;
 	--color-on-primary-fixed-variant: #2b32b7;
 
+	/* Secondary */
+	--color-secondary: #bb0017;
+	--color-on-secondary: #ffffff;
+	--color-secondary-container: #e1272b;
+	--color-on-secondary-container: #fffbff;
 	--color-secondary-fixed: #ffdad6;
 	--color-secondary-fixed-dim: #ffb3ac;
 	--color-on-secondary-fixed: #410003;
 	--color-on-secondary-fixed-variant: #93000f;
 
+	/* Tertiary */
+	--color-tertiary: #1f1f21;
+	--color-on-tertiary: #ffffff;
+	--color-tertiary-container: #9ca3af;
+	--color-on-tertiary-container: #ffffff;
 	--color-tertiary-fixed: #e5e1e4;
 	--color-tertiary-fixed-dim: #c8c6c8;
 	--color-on-tertiary-fixed: #1c1b1d;
 	--color-on-tertiary-fixed-variant: #474649;
 
-	--color-background: #f9f9f9;
-	--color-on-background: #1a1c1c;
-	--color-surface-variant: #e2e2e2;
+	/* Success */
+	--color-success: #1a6b3a;
+	--color-on-success: #ffffff;
+	--color-success-container: #81c784;
+	--color-on-success-container: #00250d;
 
-	/* 3. Border Radius System (Menyesuaikan mapping default dari Stitch) */
+	/* Warning */
+	--color-warning: #f59e0b;
+	--color-on-warning: #ffffff;
+	--color-warning-container: #ffb74d;
+	--color-on-warning-container: #241400;
+
+	/* Error */
+	--color-error: #ba1a1a;
+	--color-on-error: #ffffff;
+	--color-error-container: #e57373;
+	--color-on-error-container: #3d0000;
+
+	/* Info */
+	--color-info: #00639a;
+	--color-on-info: #ffffff;
+	--color-info-container: #64b5f6;
+	--color-on-info-container: #001221;
+
+	/* Border Radius */
 	--radius-sm: 0.25rem;
 	--radius-default: 0.5rem;
 	--radius-lg: 0.5rem;
 	--radius-xl: 0.75rem;
 	--radius-full: 9999px;
 
-	/* 4. Spacing Scale Extension */
-	--spacing-stack-lg: 2rem;
-	--spacing-gutter: 1rem;
-	--spacing-stack-md: 1rem;
+	/* Spacing */
+	--spacing-stack-xs: 0.25rem;
 	--spacing-stack-sm: 0.5rem;
-	--spacing-safe-area: 1.5rem;
-	--spacing-container-max: 480px;
+	--spacing-stack-md: 1rem;
+	--spacing-stack-lg: 2rem;
+	--spacing-stack-xl: 3rem;
+	--spacing-inset-sm: 0.5rem;
+	--spacing-inset-md: 1rem;
+	--spacing-container-sm: 640px;
+	--spacing-container-md: 480px;
+	--spacing-container-lg: 1024px;
 
-	/* 5. Custom Typography Families */
+	/* Font Families */
 	--font-sans: "Inter", sans-serif;
 	--font-geist: "Geist", sans-serif;
 	--font-mono: "JetBrains Mono", monospace;
@@ -101,7 +128,7 @@
 	--font-headline-xl: "Geist", sans-serif;
 	--font-headline-lg: "Geist", sans-serif;
 
-	/* Font Size */
+	/* Font Sizes */
 	--text-headline-xl: 40px;
 	--text-headline-xl--line-height: 1.1;
 	--text-headline-xl--letter-spacing: -0.04em;
@@ -116,27 +143,29 @@
 	--text-label-sm--line-height: 1.4;
 	--text-label-sm--font-weight: 500;
 	--text-label-sm--letter-spacing: 0.05em;
-
-	--keyframes-fade-in-up: {
-		from {
-			opacity: 0;
-			transform: translateY(20px);
-		}
-		to {
-			opacity: 1;
-			transform: translateY(0);
-		}
-	};
-
-	/* Daftarkan animasi */
-	--animate-fade-in-up: fade-in-up 0.6s ease-out forwards;
 }
 
-/* ==========================================================================
-   Custom Global Utilities System - Tailwind CSS v4 Component Layer
-   ========================================================================== */
+/* --------------------------------------------------------------------------
+   BASE STYLES
+   -------------------------------------------------------------------------- */
 
-/* Menghilangkan scrollbar bawaan Stitch */
+body {
+	@apply bg-surface text-on-surface font-sans text-[16px] leading-[1.6] tracking-normal;
+}
+
+a,
+button,
+[role="button"],
+label[for],
+select,
+summary {
+	cursor: pointer;
+}
+
+/* --------------------------------------------------------------------------
+   UTILITIES — Layout & Scroll
+   -------------------------------------------------------------------------- */
+
 @utility no-scrollbar {
 	-ms-overflow-style: none;
 	scrollbar-width: none;
@@ -146,27 +175,35 @@
 	}
 }
 
-@utility glass-card {
-	background: rgba(255, 255, 255, 0.1);
-	backdrop-filter: blur(12px);
-	-webkit-backdrop-filter: blur(12px);
-	border: 1px solid rgba(255, 255, 255, 0.2);
-	box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
-	border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+/* --------------------------------------------------------------------------
+   UTILITIES — Typography
+   -------------------------------------------------------------------------- */
+
+@utility font-body-md {
+	@apply font-sans text-[16px] leading-[1.6] tracking-normal;
 }
 
-.glass-card:hover {
-	box-shadow: 0 10px 30px -10px rgba(18, 24, 166, 0.15);
-	transform: scale(1.01);
-	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+@utility font-button-text {
+	@apply font-sans text-[14px] font-semibold leading-none tracking-[0.02em];
 }
 
-.brand-gradient {
-	background: linear-gradient(135deg, #0a52ce 0%, #bc1333 100%);
+@utility font-headline-lg-mobile {
+	@apply font-geist text-[24px] font-semibold leading-[1.2];
 }
 
-/* Gradient */
-@utility primary-gradient {
+@utility material-symbols-outlined {
+	font-variation-settings:
+		"FILL" 0,
+		"wght" 400,
+		"GRAD" 0,
+		"opsz" 24;
+}
+
+/* --------------------------------------------------------------------------
+   UTILITIES — Gradients
+   -------------------------------------------------------------------------- */
+
+@utility gradient-primary {
 	background: linear-gradient(
 		135deg,
 		var(--color-primary) 0%,
@@ -174,7 +211,7 @@
 	);
 }
 
-@utility secondary-gradient {
+@utility gradient-secondary {
 	background: linear-gradient(
 		135deg,
 		var(--color-secondary) 0%,
@@ -182,21 +219,38 @@
 	);
 }
 
-@utility tertiary-gradient {
+@utility gradient-tertiary {
 	background: linear-gradient(
 		135deg,
-		var(--color-tertiary) 0%,
-		var(--color-tertiary-container) 100%
+		var(--color-primary) 0%,
+		var(--color-tertiary) 50%,
+		var(--color-secondary) 100%
 	);
 }
 
-@utility quaternary-gradient {
-	background: linear-gradient(
-		135deg,
-		var(--color-quaternary-start) 0%,
-		var(--color-quaternary-end) 100%
-	);
+@utility gradient-quaternary {
+	background: linear-gradient(135deg, #1218a6 0%, #7b1fa2 100%);
 }
+
+@utility gradient-brand {
+	background: linear-gradient(135deg, #0a52ce 0%, #bc1333 100%);
+}
+
+@utility gradient-text {
+	background-image: linear-gradient(
+		135deg,
+		var(--color-primary) 0%,
+		var(--color-secondary) 100%
+	);
+	background-clip: text;
+	color: transparent;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+/* --------------------------------------------------------------------------
+   UTILITIES — Animated Gradient
+   -------------------------------------------------------------------------- */
 
 @keyframes gradient-shift {
 	0% {
@@ -210,7 +264,7 @@
 	}
 }
 
-@utility animate-gradient {
+@utility gradient-animated {
 	background: linear-gradient(
 		135deg,
 		var(--color-primary),
@@ -220,41 +274,28 @@
 	animation: gradient-shift 20s ease infinite;
 }
 
-/* Teks Gradient */
-@utility text-primary-gradient {
-	background-image: linear-gradient(
-		135deg,
-		var(--color-primary) 0%,
-		var(--color-secondary) 100%
-	);
-	background-clip: text;
-	color: transparent;
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
+/* --------------------------------------------------------------------------
+   UTILITIES — Cards & Surfaces
+   -------------------------------------------------------------------------- */
+
+@utility glass-card {
+	background: rgba(255, 255, 255, 0.1);
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+	box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
+
+	&:hover {
+		box-shadow: 0 10px 30px -10px rgba(18, 24, 166, 0.15);
+		transform: scale(1.01);
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	}
 }
 
-/* Konfigurasi Material Symbols Icon */
-@utility material-symbols-outlined {
-	font-variation-settings:
-		"FILL" 0,
-		"wght" 400,
-		"GRAD" 0,
-		"opsz" 24;
-}
-
-@utility font-body-md {
-	@apply font-sans text-[16px] leading-[1.6] tracking-normal;
-}
-
-/* Penyelarasan Paket Button Text Berbasis Dokumen Inti xCan */
-@utility font-button-text {
-	@apply font-sans text-[14px] font-semibold leading-none tracking-[0.02em];
-}
-
-/* Paket Headline LG Mobile untuk navigasi seluler saat dibuka */
-@utility font-headline-lg-mobile {
-	@apply font-geist text-[24px] font-semibold leading-[1.2];
-}
+/* --------------------------------------------------------------------------
+   UTILITIES — Animations (dipakai di welcome slider)
+   -------------------------------------------------------------------------- */
 
 @keyframes slide {
 	from {
@@ -265,15 +306,39 @@
 	}
 }
 
-.animate-slide {
+@utility animate-slide {
 	animation: slide 30s linear infinite;
 	transition: all 0.8s ease-in-out;
 }
 
-.paused {
+@utility paused {
 	animation-play-state: paused;
 }
 
-body {
-	@apply bg-surface text-on-surface font-sans text-[16px] leading-[1.6] tracking-normal;
+/* --------------------------------------------------------------------------
+   LOGIN PAGE — Decorative Classes
+   -------------------------------------------------------------------------- */
+
+.grid-pattern {
+	background-image:
+		linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+	background-size: 40px 40px;
+}
+
+.glow-effect {
+	background: radial-gradient(circle, var(--color-primary) 0%, transparent 70%);
+	opacity: 0.15;
+}
+
+.chart-path {
+	stroke-dasharray: 1000;
+	stroke-dashoffset: 1000;
+	animation: draw-path 2s ease forwards;
+}
+
+@keyframes draw-path {
+	to {
+		stroke-dashoffset: 0;
+	}
 }

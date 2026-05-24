@@ -1,7 +1,8 @@
 <?php use Livewire\Component;new class extends Component{};?>
 
 <!-- Hero Section 1 -->
-<section class="bg-surface-container-lowest/60">
+<section class="bg-surface-container-lowest/60 bg-repeat bg-cover bg-center bg-blend-overlay overflow-hidden"
+	style="background-image: url('{{ asset('storage/images/grid-cube.svg') }}');">
 	<div class="md:max-w-8/12 mx-auto md:h-dvh px-6 py-8 md:py-24 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 		<div class="space-y-8">
 			<h1 class="font-headline-xl text-headline-xl text-primary leading-tight">
@@ -15,15 +16,15 @@
 				<label for="claim-url" class="font-label-sm text-label-sm text-on-surface-variant ml-1">Claim your personal
 					URL</label>
 				<div
-					class="flex items-center justify-between max-w-max bg-white rounded-xl border border-outline-variant/30 focus-within:ring-2 ring-primary/20 transition-all p-1">
-					<span class="pl-3 font-body-md text-body-md text-on-surface-variant/60 whitespace-nowrap">{{
+					class="flex items-center justify-between max-w-max bg-white rounded border border-outline-variant/30 focus-within:ring-2 ring-primary/20 transition-all p-1">
+					<span class="pl-2 font-body-md text-body-md text-on-surface-variant/60 whitespace-nowrap">{{
 						config('app.domain') }}/</span>
 					<input
-						class="flex-1 border-none bg-transparent focus:ring-0 font-body-md text-body-md py-2 placeholder:text-outline-variant outline-none"
+						class="border-none bg-transparent focus:ring-0 font-body-md text-body-md py-2 placeholder:text-outline-variant outline-none"
 						placeholder="username" type="text" id="claim-url">
 
 					<button
-						class="primary-gradient text-white px-4 py-2 rounded-lg font-button-text text-button-text flex items-center gap-2 transition-transform active:scale-95 whitespace-nowrap">
+						class="gradient-primary text-white px-4 py-2 rounded font-button-text text-button-text flex items-center gap-2 transition-transform active:scale-95 whitespace-nowrap">
 						Claim Page <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
 					</button>
 				</div>
@@ -32,11 +33,23 @@
 		<div x-data="{
         activeSlide: 'laptop',
         slides: ['laptop', 'phone'],
+        paused: false,
+        timer: null,
+        init() {
+            // Berjalan otomatis saat komponen diinisialisasi
+            this.timer = setInterval(() => this.next(), 4000);
+        },
+        destroy() {
+            // Berjalan otomatis saat komponen dihapus dari DOM oleh Livewire
+            if (this.timer) clearInterval(this.timer);
+        },
         next() {
+            if (this.paused) return;
             let index = this.slides.indexOf(this.activeSlide);
             this.activeSlide = this.slides[(index + 1) % this.slides.length];
         }
-    }" x-init="setInterval(() => next(), 4000)" class="md:flex flex-col items-center w-full relative hidden">
+    }" @mouseenter="paused = true" @mouseleave="paused = false"
+			class="md:flex flex-col items-center w-full relative hidden">
 			<div class="relative w-full flex justify-center items-center">
 				<div x-show="activeSlide === 'laptop'" x-transition:enter="transition ease-out duration-700"
 					x-transition:enter-start="opacity-0 translate-x-10" x-transition:enter-end="opacity-100 translate-x-0"

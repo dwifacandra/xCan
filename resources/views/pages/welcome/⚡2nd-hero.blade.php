@@ -1,7 +1,7 @@
 <?php use Livewire\Component;new class extends Component{};?>
 
 <!-- Hero Section 2 (Analytics) -->
-<section class="py-24 quaternary-gradient">
+<section class="py-24 gradient-animated">
 	<div class="md:max-w-8/12 mx-auto md:h-dvh px-6 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
 		<div class="order-2 lg:order-1 relative">
 			<x-visual.metric-cards />

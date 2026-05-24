@@ -30,7 +30,7 @@
 			</a>
 			@endauth
 			<button
-				class="h-9 flex items-center justify-center px-5 rounded-lg primary-gradient text-white hover:scale-[1.03] transition-transform duration-200 font-button-text active:scale-95 capitalize">
+				class="h-9 flex items-center justify-center px-5 rounded-lg gradient-primary text-white hover:scale-[1.03] transition-transform duration-200 font-button-text active:scale-95 capitalize">
 				Get Started
 			</button>
 		</div>
@@ -64,7 +64,7 @@
 				<i class="fa-solid fa-right-to-bracket text-xl"></i> Login
 			</a>
 			@endauth
-			<button class="flex-[2] primary-gradient text-white px-6 py-3 rounded-lg font-sans text-[14px] font-semibold">
+			<button class="flex-[2] gradient-primary text-white px-6 py-3 rounded-lg font-sans text-[14px] font-semibold">
 				Get Started
 			</button>
 		</div>

@@ -38,7 +38,7 @@ class extends Component
 
 <main class="grid grid-cols-1 lg:grid-cols-12 min-h-screen h-dvh">
 	<section class="lg:col-span-5 flex flex-col p-safe-area relative z-10 bg-surface">
-		<header class="flex justify-between items-center w-full mb-stack-lg">
+		<header class="flex justify-between items-center w-full mb-stack-lg p-4">
 			{{-- Brand --}}
 			<x-brand variant="full" subtext="Ecosystem" />
 			<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">
@@ -93,7 +93,7 @@ class extends Component
 						device</label>
 				</div>
 				<button type="submit" wire:loading.attr="disabled"
-					class="w-full py-4 primary-gradient text-on-secondary-container font-button-text text-button-text rounded-xl shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 uppercase tracking-widest">
+					class="w-full py-4 gradient-animated text-on-secondary-container font-button-text text-button-text rounded-xl shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 uppercase tracking-widest">
 					<span wire:loading.remove>
 						Login
 					</span>
@@ -124,7 +124,7 @@ class extends Component
 				</div>
 			</form>
 		</div>
-		<footer class="mt-stack-lg flex justify-between items-center text-outline text-label-sm font-label-sm">
+		<footer class="mt-stack-lg p-4 flex justify-between items-center text-outline text-label-sm font-label-sm">
 			<span class="">© {{ date('Y') }} xCan Ecosystem. All rights reserved.</span>
 			<div class="flex gap-4">
 				<a class="hover:text-primary" href="#">Privacy</a>
@@ -133,7 +133,7 @@ class extends Component
 		</footer>
 	</section>
 	<section
-		class="hidden select-none lg:flex lg:col-span-7 relative overflow-hidden flex-col justify-center items-center p-stack-lg animate-gradient">
+		class="hidden select-none lg:flex lg:col-span-7 relative overflow-hidden flex-col justify-center items-center p-stack-lg gradient-animated">
 		<div class="absolute inset-0 grid-pattern opacity-20"></div>
 		<div class="absolute top-1/4 left-1/4 w-[500px] h-[500px] glow-effect blur-[100px]"></div>
 		<div class="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-secondary opacity-10 blur-[120px]"></div>

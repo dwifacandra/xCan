@@ -33,7 +33,10 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function () {
 	});
 
 	// Documentation
-	Route::get('/docs', function () {
-		return view('pages.docs.index');
+	Route::prefix('docs')->group(function () {
+		Route::get('/', function () {
+			return view('pages.docs.index');
+		});
+		Route::livewire('/color', 'pages::docs.color')->name('docs.color');
 	});
 });

@@ -101,7 +101,7 @@ class extends Component
 				<div class="w-full bg-primary/20 rounded-t-sm transition-all hover:bg-primary/40 cursor-pointer h-[70%]"></div>
 				<div class="w-full bg-primary/20 rounded-t-sm transition-all hover:bg-primary/40 cursor-pointer h-[95%]"></div>
 				<div
-					class="w-full brand-gradient rounded-t-sm transition-all hover:opacity-90 cursor-pointer h-[100%] shadow-xl shadow-primary/20">
+					class="w-full gradient-brand rounded-t-sm transition-all hover:opacity-90 cursor-pointer h-[100%] shadow-xl shadow-primary/20">
 				</div>
 			</div>
 			<div class="flex justify-between mt-4 text-[10px] font-label-sm text-outline px-2">
